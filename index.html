@@ -3,148 +3,850 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shruti Dubey | Digital Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <title>BSc Computer Science Portfolio | Shruti Dubey</title>
+    <style>
+        /* Modern Engineering & Integrated Full-Page Physics System */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        :root {
+            --bg: #060913;           /* Cosmic pitch black */
+            --surface: rgba(19, 26, 44, 0.6); /* Translucent glass surface */
+            --border: #1e2942;       /* Structurally sharp boundaries */
+            --text-main: #F3F4F6;    
+            --text-muted: #9CA3AF;   
+            --accent: #38BDF8;       /* Tech Cyan */
+            --data-accent: #10B981;  /* Data Emerald */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0 1rem;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 0 2rem;
+            }
+        }
+
+        /* FULL PAGE PHYSICS CANVAS LAYER */
+        #physics-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;          
+            pointer-events: auto; 
+        }
+
+        /* HIDE CANVAS ON MOBILE CHANNELS */
+        @media (max-width: 767px) {
+            #physics-canvas {
+                display: none !important;
+            }
+        }
+
+        /* TECH BACKGROUND GRID */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 20; 
+            padding-bottom: 60px; 
+        }
+
+        a, .btn, .project-row {
+            position: relative;
+            z-index: 30;
+            pointer-events: auto;
+        }
+
+        /* WELCOME GREETING OVERLAY SCREEN */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(6, 9, 19, 0.96);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            padding: 1rem;
+        }
+
+        .welcome-card {
+            background: rgba(19, 26, 44, 0.6);
+            border: 1px solid var(--border);
+            padding: 2.5rem 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 550px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            transform: scale(0.95);
+            animation: cardEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @media (min-width: 768px) {
+            .welcome-card {
+                padding: 3.5rem 2.5rem;
+            }
+        }
+
+        @keyframes cardEntrance {
+            to { transform: scale(1); }
+        }
+
+        .welcome-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        @media (min-width: 768px) {
+            .welcome-card h2 { font-size: 2.2rem; }
+        }
+
+        .welcome-card h2 span {
+            color: var(--data-accent);
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Minimal Navigation */
+        nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (min-width: 480px) {
+            nav {
+                flex-direction: row;
+                padding: 2rem 0;
+            }
+        }
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--data-accent);
+        }
+
+        .status-badge {
+            background: rgba(16, 185, 129, 0.12);
+            color: var(--data-accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--data-accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--data-accent);
+        }
+
+        /* Hero Layout */
+        header {
+            padding: 3rem 0 2rem 0;
+        }
+
+        @media (min-width: 768px) {
+            header { padding: 6rem 0 4rem 0; }
+        }
+
+        .hero-location {
+            color: var(--data-accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-desc { font-size: 1.2rem; }
+        }
+
+        /* Interactive Buttons */
+        .action-hub {
+            display: flex;
+            gap: 0.8rem;
+            flex-direction: column;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 480px) {
+            .action-hub {
+                flex-direction: row;
+                flex-wrap: wrap;
+                margin-bottom: 4rem;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--text-main);
+            color: var(--bg);
+            box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Split Dashboard Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        @media (min-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 2fr 1fr;
+                gap: 3rem;
+                margin-bottom: 5rem;
+            }
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Projects Matrix */
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .project-row {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: border-color 0.3s, transform 0.3s;
+            backdrop-filter: blur(12px);
+        }
+
+        @media (min-width: 768px) {
+            .project-row { padding: 2rem; }
+        }
+
+        .project-row:hover {
+            border-color: var(--data-accent);
+            transform: scale(1.01);
+        }
+
+        .project-row.data-highlight {
+            border-left: 4px solid var(--data-accent);
+        }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        @media (min-width: 480px) {
+            .project-meta {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        .project-row h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-row p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tech-tag.data-pill {
+            background: rgba(16, 185, 129, 0.08);
+            border-color: rgba(16, 185, 129, 0.2);
+            color: var(--data-accent);
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+        } club {
+            position: relative;
+        }
+
+        /* Right Side columns */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .timeline-block {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-node {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+
+        .timeline-node::before {
+            content: '';
+            position: absolute;
+            left: calc(-1.5rem - 6px);
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--bg);
+            border: 2px solid var(--data-accent);
+            border-radius: 50%;
+        }
+
+        .node-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .node-company {
+            color: var(--data-accent);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .node-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        /* MOBILES FRIENDLY PERSISTENT PILLS */
+        .pill-box {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .pill {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .pill.focus {
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        @media (min-width: 480px) {
+            footer {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+    </style>
 </head>
-<body class="bg-animate">
+<body>
 
-    <header>
-        <div class="nav-blur">
-            <div class="logo">SD <span class="dot">.</span></div>
-            <nav>
-                <ul>
-                    <li><a href="#about">// about</a></li>
-                    <li><a href="#skills">// skills</a></li>
-                    <li><a href="#projects">// projects</a></li>
-                    <li><a href="Shruti resume.pdf" class="resume-tag" download>// resume.pdf</a></li>
-                </ul>
-            </nav>
+    <div id="welcome-overlay">
+        <div class="welcome-card">
+            <h2>Hello & <span>Welcome</span>!</h2>
+            <p>Thank you for stopping by. I'm glad you're here to check out my engineering and data workspace. Let's see what we can build together.</p>
+            <button class="btn btn-primary" onclick="startPortfolio()">Enter Portfolio</button>
         </div>
-    </header>
+    </div>
 
-    <main class="container">
-        <section id="about" class="hero">
-            <div class="hero-inner">
-                <div class="hero-content">
-                    <div class="status-badge">Available for Internships</div>
-                    <h1 class="glitch">I'm <span class="text-gradient">Shruti Dubey</span></h1>
-                    <p class="hero-desc">
-                        A Final Year <strong>BSc Computer Science</strong> student merging high-level logic with artisanal creativity. 
-                        Founder of <strong>Flameies</strong>.
-                    </p>
+    <div class="grid-overlay"></div>
+    <canvas id="physics-canvas"></canvas>
+
+    <div class="container" id="main-content" style="opacity: 0; transition: opacity 1s ease;">
+        
+        <nav>
+            <a href="#" class="nav-brand">SHRUTI<span>.BSc_CS</span></a>
+            <div class="status-badge">
+                <div class="status-dot"></div> Available for Hire
+            </div>
+        </nav>
+
+        <header>
+            <div class="hero-location">Based in Mumbai, India</div>
+            <h1>Hi, I'm Shruti Dubey.<br>BSc Computer Science <span>Graduate</span>.</h1>
+            <p class="hero-desc">
+                Computer Science graduate from Nagindas Khandwala College specializing in software engineering, data architecture, and analytical systems. Equipped with cloud database fundamentals and advanced framework design to engineer performant pipelines and elegant web interfaces.
+            </p>
+            
+            <div class="action-hub">
+                <a href="mailto:shrutidubey846@gmail.com" id="email-btn" class="btn btn-primary">Request Resume / Interview</a>
+                <a href="https://github.com/8080Shruti" target="_blank" class="btn btn-secondary">GitHub Portal</a>
+                <a href="https://www.linkedin.com/in/shruti-dubey-561a83378" target="_blank" class="btn btn-secondary">LinkedIn Profile</a>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            
+            <div>
+                <h2 class="section-title">Core Systems & Data Engineering</h2>
+                <div class="projects-list">
                     
-                    <div class="system-log glass">
-                        <div class="log-header">System_Logs v2.0.6</div>
-                        <div class="log-body">
-                            <p><span>[OK]</span> 3rd Year BSc CS student</p>
-                            <p><span>[OK]</span> Specialized in Frontend Architectures</p>
-                            <p><span>[OK]</span> Founder & Creative Lead at Flameies</p>
-                            <p><span>[OK]</span> Building E-Cinema Management System</p>
+                    <div class="project-row data-highlight">
+                        <div class="project-meta">
+                            <h3>E-Cinema Analytics & Relational Booking Platform</h3>
+                            <span class="tech-tag data-pill">Data Architecture</span>
+                        </div>
+                        <p>Engineered an architectural data system configured for transaction management and user reservation streams. Developed data validation constraints using relational engineering to maintain clean tables and optimal query performance.</p>
+                        <div class="tag-row">
+                            <span class="tech-tag data-pill">Python</span>
+                            <span class="tech-tag data-pill">SQL Logic</span>
+                            <span class="tech-tag data-pill">Relational Database Schemas</span>
+                            <span class="tech-tag">MySQL</span>
                         </div>
                     </div>
 
-                    <div class="cta-box">
-                        <a href="#projects" class="btn-main">View Archive</a>
+                    <div class="project-row">
+                        <div class="project-meta">
+                            <h3>Clinical Exercise Accessibility Portal</h3>
+                            <a href="https://8080shruti.github.io/Exercise/" target="_blank" class="project-link">Live Build →</a>
+                        </div>
+                        <p>A web application engineered to map and present doctor-recommended health routines targeting physical pain parameters in elderly women. Focused on highly tailored client UI presentation based on clinical data categories.</p>
+                        <div class="tag-row">
+                            <span class="tech-tag">UX/UI Accessibility</span>
+                            <span class="tech-tag">Web Deployment</span>
+                        </div>
+                    </div>
+
+                    <div class="project-row">
+                        <div class="project-meta">
+                            <h3>Flameies Official Brand Web Portal</h3>
+                            <a href="https://8080shruti.github.io/Flameies_Official/" target="_blank" class="project-link">Live Brand Build →</a>
+                        </div>
+                        <p>An official corporate web portal deployed for my organic candle brand, Flameies. Built independently to translate consumer brand metrics into a fluid, responsive product layout deck.</p>
+                        <div class="tag-row">
+                            <span class="tech-tag">HTML5 / CSS</span>
+                            <span class="tech-tag">Brand Engineering</span>
+                            <span class="tech-tag">Deployment</span>
+                        </div>
+                    </div>
+
+                    <div class="project-row">
+                        <div class="project-meta">
+                            <h3>Flameies E-Commerce Web Prototype</h3>
+                            <a href="https://8080shruti.github.io/flameies-IBM_project/" target="_blank" class="project-link">Live Prototype →</a>
+                        </div>
+                        <p>Architected and deployed a custom collaborative front-end web portal in cross-functional integration with project teammates during my internship path. Focused on unifying layout assets smoothly.</p>
+                        <div class="tag-row">
+                            <span class="tech-tag">HTML5 / CSS</span>
+                            <span class="tech-tag">Team Integration</span>
+                            <span class="tech-tag">IBM SkillBuild</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="right-column">
+                
+                <div>
+                    <h2 class="section-title">Professional Footprint</h2>
+                    <div class="timeline-block">
+                        
+                        <div class="timeline-node">
+                            <div class="node-title">Web Development Intern</div>
+                            <div class="node-company">CodSoft</div>
+                            <div class="node-date">Jan 2026 - Feb 2026</div>
+                        </div>
+
+                        <div class="timeline-node">
+                            <div class="node-title">Web Development Intern</div>
+                            <div class="node-company">IBM SkillBuild</div>
+                            <div class="node-date">Jun 2025 - Jul 2025</div>
+                        </div>
+
+                        <div class="timeline-node">
+                            <div class="node-title">Founder / Data Manager</div>
+                            <div class="node-company">Flameies Organic Candles</div>
+                            <div class="node-date">2023 - Present</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="section-title">Technical Skills & Tools</h2>
+                    <div class="pill-box">
+                        <span class="pill focus">Microsoft Azure Data Fundamentals</span>
+                        <span class="pill focus">MySQL & Oracle DB</span>
+                        <span class="pill focus">Python Programming</span>
+                        <span class="pill focus">Relational SQL Logic</span>
+                        <span class="pill">Data Automation Tools</span>
+                        <span class="pill">Git & GitHub Integration</span>
+                        <span class="pill">HTML5 / CSS</span>
+                        <span class="pill">IIT Bombay HTML Trained</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Shruti Dubey. Engineered for High Performance.</p>
+            <p>Nagindas Khandwala College Alumni.</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('physics-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        let physicsActive = false; 
+        let timeElapsed = 0;
+        let timerInterval = null;
+
+        let voiceTriggers = { fiveSec: false, twentySec: false, fortySec: false };
+
+        // Checks viewport size channel to see if client is on mobile screen boundaries
+        const isMobile = () => window.innerWidth < 768;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const skillSet = [
+            "Microsoft Azure Data", "MySQL", "Oracle DB", "Python", 
+            "Relational SQL", "Git & GitHub", "HTML5", "CSS", 
+            "Data Automation"
+        ];
+
+        let mouse = { x: 0, y: 0, isDown: false, draggedPill: null };
+
+        class SkillPill {
+            constructor(text, index) {
+                this.text = text;
+                ctx.font = '600 12px Inter';
+                this.paddingX = 14;
+                this.paddingY = 8;
+                
+                this.w = ctx.measureText(text).width + (this.paddingX * 2);
+                this.h = 28; 
+                
+                this.x = (width / (skillSet.length + 1)) * (index + 1) - (this.w / 2) + (Math.random() - 0.5) * 30;
+                this.y = -80 - (index * 65); 
+                
+                this.vy = Math.random() * 8 + 12; 
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.gravity = 0.32;
+                this.bounce = 0.38;
+                this.friction = 0.94;
+                this.color = Math.random() > 0.5 ? '#10B981' : '#38BDF8';
+                this.isGrounded = false;
+            }
+
+            update(pills) {
+                if (mouse.draggedPill === this) {
+                    this.vx = (mouse.x - (this.w / 2) - this.x) * 0.25;
+                    this.vy = (mouse.y - (this.h / 2) - this.y) * 0.25;
+                    this.x += this.vx; this.y += this.vy;
+                    this.isGrounded = false;
+                    return;
+                }
+
+                if (!this.isGrounded) {
+                    this.vy += this.gravity;
+                    this.y += this.vy; this.x += this.vx;
+                }
+
+                if (this.y + this.h >= height) {
+                    this.y = height - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction;
+                    if (Math.abs(this.vy) < 0.6) { this.vy = 0; this.isGrounded = true; }
+                }
+
+                for (let i = 0; i < pills.length; i++) {
+                    let other = pills[i]; if (other === this || mouse.draggedPill === other) continue;
+                    if (this.x < other.x + other.w && this.x + this.w > other.x &&
+                        this.y < other.y + other.h && this.y + this.h > other.y) {
+                        if (this.y + this.h - this.vy <= other.y + 5) {
+                            this.y = other.y - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction;
+                            if (Math.abs(this.vy) < 0.6) this.vy = 0;
+                        } else {
+                            if (this.x + (this.w / 2) < other.x + (other.w / 2)) { this.x = other.x - this.w - 1; this.vx = -Math.abs(this.vx) * 0.3; }
+                            else { this.x = other.x + other.w + 1; this.vx = Math.abs(this.vx) * 0.3; }
+                        }
+                    }
+                }
+                if (this.x <= 0) { this.x = 0; this.vx = -this.vx * 0.4; }
+                if (this.x + this.w >= width) { this.x = width - this.w; this.vx = -this.vx * 0.4; }
+            }
+
+            draw() {
+                ctx.beginPath(); ctx.roundRect(this.x, this.y, this.w, this.h, 6);
+                ctx.fillStyle = mouse.draggedPill === this ? 'rgba(30, 41, 59, 0.95)' : 'rgba(19, 26, 44, 0.85)';
+                ctx.strokeStyle = this.color; ctx.lineWidth = mouse.draggedPill === this ? 2 : 1.2;
+                if (mouse.draggedPill === this) { ctx.shadowColor = this.color; ctx.shadowBlur = 15; }
+                ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0; 
+
+                ctx.font = '600 12px Inter'; ctx.fillStyle = '#FFFFFF';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText(this.text, this.x + this.paddingX, this.y + this.paddingY);
+            }
+        }
+
+        const pills = skillSet.map((skill, index) => new SkillPill(skill, index));
+
+        // SWEET, REQUESTABLE SPEECH CODES PIPELINE
+        function speakMessage(messageText) {
+            // Safety guard: Do not run speech voice tracks on mobile phones
+            if (isMobile()) return;
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                let utterance = new SpeechSynthesisUtterance(messageText);
+                let voices = window.speechSynthesis.getVoices();
+                
+                let chosenVoice = voices.find(voice => 
+                    voice.name.includes('Female') || 
+                    voice.name.includes('Google US English') || 
+                    voice.name.includes('Samantha') ||
+                    voice.name.includes('Zira')
+                );
+                
+                if (chosenVoice) utterance.voice = chosenVoice;
+                
+                utterance.rate = 0.85;  
+                utterance.pitch = 1.25; 
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
+
+        function startPortfolio() {
+            const overlay = document.getElementById('welcome-overlay');
+            const mainContent = document.getElementById('main-content');
+            
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                mainContent.style.opacity = '1';
+                
+                // Initialize engine loops only if device parameters screen is desktop width
+                if (!isMobile()) {
+                    physicsActive = true; 
+                    startRecruiterTimer();
+                }
+            }, 600);
+        }
+
+        // RECRUITER TIMELINE GREETINGS
+        function startRecruiterTimer() {
+            timerInterval = setInterval(() => {
+                timeElapsed++;
+
+                // HOOK 1: 5 Seconds Warm Greeting
+                if (timeElapsed === 5 && !voiceTriggers.fiveSec) {
+                    voiceTriggers.fiveSec = true;
+                    speakMessage("Hello there. Thank you so much for taking the time to visit Shruti's portfolio today. She is wonderful to work with, and we hope you love checking out her skills.");
+                }
+
+                // HOOK 2: 20 Seconds Polite Project Highlight
+                if (timeElapsed === 20 && !voiceTriggers.twentySec) {
+                    voiceTriggers.twentySec = true;
+                    speakMessage("If you have a quick moment, could you please take a peek at her final year E-Cinema system and her collaborative prototype work? She put so much heart and logic into them.");
+                }
+
+                // HOOK 3: 40 Seconds Requestable Contact Option
+                if (timeElapsed === 40 && !voiceTriggers.fortySec) {
+                    voiceTriggers.fortySec = true;
+                    speakMessage("Thank you for looking through her journey. If her profile matches what you are looking for, would you mind sending her a quick message through the email link? She would love to connect with you.");
                     
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="glass-frame">
-                        <img src="images/myimage.png" alt="Shruti Dubey" class="profile-img">
-                        <div class="photo-label">Entrepreneur</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                    const emailBtn = document.getElementById('email-btn');
+                    if (emailBtn) emailBtn.style.boxShadow = "0px 0px 25px #10B981";
+                }
 
-        <section id="skills" class="section-padding">
-            <h2 class="section-title">System_Core_Skills</h2>
-            <div class="terminal-box glass">
-                <div class="terminal-header">
-                    <span class="t-dot red"></span>
-                    <span class="t-dot yellow"></span>
-                    <span class="t-dot green"></span>
-                    <span class="t-user">shruti@admin: ~</span>
-                </div>
-                <div class="terminal-body">
-                    <p><span class="t-cmd">ls</span> tech_stack/</p>
-                    <div class="skills-grid-new">
-                        <div class="skill-category">
-                            <h4>Frontend Development</h4>
-                            <p>HTML5, CSS3, JavaScript, Responsive UI</p>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Core CS & Backend</h4>
-                            <p>C++, Java, DBMS, Software Engineering</p>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Business Logic</h4>
-                            <p>E-commerce Deployment, Brand Strategy</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            }, 1000);
+        }
 
-        <section id="projects" class="section-padding">
-            <h2 class="section-title">Selected_Works</h2>
-            <div class="grid-layout">
-                <div class="card glass">
-                    <div class="card-header">
-                        <span class="folder-icon">📂</span>
-                        <a href="https://8080shruti.github.io/flameies-IBM_project/" target="_blank">🔗</a>
-                    </div>
-                    <div class="project-logo-box">
-                        <img src="images/flameies_logo.jpg" alt="Flameies Logo" class="project-thumb">
-                    </div>
-                    <h3>Flameies E-Commerce</h3>
-                    <p>A sophisticated frontend implementation for my handcrafted soy candle business.</p>
-                    <div class="tags"><span>HTML</span> <span>CSS</span> <span>JS</span></div>
-                </div>
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
 
-                <div class="card glass">
-                    <div class="card-header">
-                        <span class="folder-icon">📂</span>
-                    </div>
-                    <div class="project-logo-box">
-                        <img src="images/E-cinema_logo.png" alt="E-Cinema Logo" class="project-thumb">
-                    </div>
-                    <h3>E-Cinema System</h3>
-                    <p>Final Year Project: A movie ticket booking and management platform.</p>
-                    <div class="tags"><span>BSc CS</span> <span>Database</span> <span>Logic</span></div>
-                </div>
-            </div>
-        </section>
+        window.addEventListener('mousedown', () => {
+            if (!physicsActive) return;
+            mouse.isDown = true;
+            for (let i = pills.length - 1; i >= 0; i--) {
+                let p = pills[i];
+                if (mouse.x >= p.x && mouse.x <= p.x + p.w &&
+                    mouse.y >= p.y && mouse.y <= p.y + p.h) {
+                    mouse.draggedPill = p;
+                    break;
+                }
+            }
+        });
 
-        <section id="contact" class="section-padding">
-            <h2 class="section-title">Initialize_Connection</h2>
-            <div class="contact-terminal glass">
-                <div class="terminal-header">
-                    <span class="t-dot red"></span><span class="t-dot yellow"></span><span class="t-dot green"></span>
-                    <span class="t-user">shruti@comms: ~</span>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-method">
-                        <span class="t-cmd">Email:</span>
-                        <a href="mailto:shrutidubey846@gmail.com" class="contact-link">shrutidubey846@gmail.com</a>
-                    </div>
-                    <div class="contact-method">
-                        <span class="t-cmd">Phone:</span>
-                        <p class="contact-link">+91 8080229051</p>
-                    </div>
-                    <div class="contact-status-box">
-                        <p class="t-dim">// Status: Actively seeking internships</p>
-                        <a href="mailto:shrutidubey846@gmail.com" class="ping-btn">Ping Me</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+        window.addEventListener('mouseup', () => {
+            mouse.isDown = false;
+            mouse.draggedPill = null;
+        });
 
-    <footer>
-        <p>Built with <span class="heart">❤</span> & Code by Shruti Dubey @ 2026</p>
-    </footer>
-
+        function physicsLoop() {
+            ctx.clearRect(0, 0, width, height);
+            if (physicsActive && !isMobile()) {
+                pills.forEach(pill => { pill.update(pills); pill.draw(); });
+            }
+            requestAnimationFrame(physicsLoop);
+        }
+        physicsLoop();
+    </script>
 </body>
 </html>
