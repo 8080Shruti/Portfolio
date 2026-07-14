@@ -123,9 +123,7 @@
         }
 
         @media (max-width: 767px) {
-            .btn-ai-assistant {
-                animation: none;
-            }
+            .btn-ai-assistant { animation: none; }
         }
 
         @keyframes assistantPulse {
@@ -515,7 +513,7 @@
         </footer>
     </div>
 
-    <!-- ADVANCED CHAT INTERACTION & CONVERSATIONAL ROUTER MODULE -->
+    <!-- HIGH-FIDELITY CORNER CHAT INTERACTIVE LOGIC MODULE -->
     <script>
         const canvas = document.getElementById('physics-canvas');
         const ctx = canvas.getContext('2d');
@@ -614,12 +612,10 @@
             }
         ];
 
-        // DYNAMIC INTERPOLATION PARSING ALGORITHM
         function processVoiceCommand(input) {
             const bubble = document.getElementById('ai-chat-bubble');
             let matchedAnswer = null;
 
-            // Loop through keyword objects to look for relevant matches
             for (const node of knowledgeGraph) {
                 const triggerFound = node.keywords.some(word => input.includes(word));
                 if (triggerFound) {
@@ -630,16 +626,13 @@
 
             if (matchedAnswer) {
                 bubble.innerText = matchedAnswer;
-                // Stripping format numbers/newlines for natural voice emission
                 const speakingCleanText = matchedAnswer.replace(/[0-9.]/g, '').replace(/\n/g, ' ');
                 speakMessage(speakingCleanText);
 
-                // Instantly execute hyper-linking if the user commands to contact you
                 if (input.includes('call') || input.includes('phone') || input.includes('whatsapp') || input.includes('hire')) {
                     setTimeout(() => window.location.href = "tel:+918080229051", 1600);
                 }
             } else {
-                // Unique answer telling them exactly what keywords they can evaluate
                 const fallback = `I analyzed "${input}" but couldn't find a direct database match.\n\nTry asking unique things like: "Where did she do her internships?", "What skills does she have?", or "Tell me about her college degree!"`;
                 bubble.innerText = fallback;
                 speakMessage("I analyzed your question but couldn't find a match. Try asking about her internships, her tech skills, or her college degree!");
@@ -647,6 +640,7 @@
             bubble.scrollTop = bubble.scrollHeight;
         }
 
+        // ADVANCED MOBILE-OPTIMIZED HIGH-FIDELITY SPEECH PIPELINE
         function speakMessage(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -654,13 +648,32 @@
                 let voices = window.speechSynthesis.getVoices();
                 
                 let chosenVoice = voices.find(v => 
-                    v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha'))
-                ) || voices.find(v => v.lang.startsWith('en'));
+                    v.lang.startsWith('en') && (
+                        v.name.includes('Neural') ||      
+                        v.name.includes('Premium') ||     
+                        v.name.includes('Natural') ||     
+                        v.name.includes('Samantha') ||    
+                        v.name.includes('Google US English')
+                    )
+                );
+                
+                if (!chosenVoice) {
+                    chosenVoice = voices.find(v => v.lang.startsWith('en-US')) || 
+                                  voices.find(v => v.lang.startsWith('en'));
+                }
                 
                 if (chosenVoice) utterance.voice = chosenVoice;
-                utterance.rate = 0.95; utterance.pitch = 1.20;
+                
+                utterance.rate = 0.95;  
+                utterance.pitch = 1.15; 
+                
                 window.speechSynthesis.speak(utterance);
             }
+        }
+
+        if ('speechSynthesis' in window) { 
+            window.speechSynthesis.getVoices(); 
+            window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
         }
 
         const skillSet = ["Microsoft Azure Data", "MySQL", "Oracle DB", "Python", "Relational SQL", "Git & GitHub", "HTML5", "CSS", "Data Automation"];
