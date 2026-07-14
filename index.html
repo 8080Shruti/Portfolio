@@ -226,6 +226,7 @@
         }
 
         .btn-primary { background: var(--text-main); color: var(--bg); border: none; box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1); }
+        .btn-primary:hover { background: #ffffff; transform: translateY(-2px); }
         .btn-secondary { background: rgba(255, 255, 255, 0.02); color: var(--text-main); border: 1px solid var(--border); backdrop-filter: blur(4px); }
 
         /* Split Dashboard Layout */
@@ -344,7 +345,6 @@
 </head>
 <body>
 
-    <!-- WELCOME GREETING OVERLAY SCREEN -->
     <div id="welcome-overlay">
         <div class="welcome-card">
             <h2>Hello & <span>Welcome</span>!</h2>
@@ -353,13 +353,11 @@
         </div>
     </div>
 
-    <!-- TECH WIRE GRAPHICS & OVERLAY NETWORKS -->
     <div class="grid-overlay"></div>
     <canvas id="physics-canvas"></canvas>
 
     <div class="container" id="main-content" style="opacity: 0; transition: opacity 1s ease;">
         
-        <!-- Navigation Header -->
         <nav>
             <a href="#" class="nav-brand">SHRUTI<span>.BSc_CS</span></a>
             <div class="status-badge">
@@ -367,7 +365,6 @@
             </div>
         </nav>
 
-        <!-- Main Introduction Structure -->
         <header>
             <div class="hero-location">Based in Mumbai, India</div>
             <h1>Hi, I'm Shruti Dubey.<br>BSc Computer Science <span>Graduate</span>.</h1>
@@ -382,15 +379,12 @@
             </div>
         </header>
 
-        <!-- Core Dashboard Workspaces -->
         <div class="dashboard-grid">
             
-            <!-- Left Grid: RESTORED FULL PROJECTS LIST -->
             <div>
                 <h2 class="section-title">Core Systems & Data Engineering</h2>
                 <div class="projects-list">
                     
-                    <!-- Project Card 1: E-Cinema -->
                     <div class="project-row data-highlight">
                         <div class="project-meta">
                             <h3>E-Cinema Analytics & Relational Booking Platform</h3>
@@ -405,7 +399,6 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 2: Exercise App -->
                     <div class="project-row">
                         <div class="project-meta">
                             <h3>Clinical Exercise Accessibility Portal</h3>
@@ -419,7 +412,6 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 3: Flameies Official -->
                     <div class="project-row">
                         <div class="project-meta">
                             <h3>Flameies Official Brand Web Portal</h3>
@@ -433,7 +425,6 @@
                         </div>
                     </div>
 
-                    <!-- Project Card 4: IBM SkillBuild Collaborative Project -->
                     <div class="project-row">
                         <div class="project-meta">
                             <h3>Flameies E-Commerce Web Prototype</h3>
@@ -450,7 +441,6 @@
                 </div>
             </div>
 
-            <!-- Right Grid: RESTORED FULL FOOTPRINT AND SKILLS -->
             <div class="right-column">
                 
                 <div>
@@ -478,7 +468,6 @@
                     </div>
                 </div>
 
-                <!-- PRESERVED PERMANENT FULL SKILLS HUB -->
                 <div>
                     <h2 class="section-title">Technical Skills & Tools</h2>
                     <div class="pill-box">
@@ -503,7 +492,6 @@
 
     </div>
 
-    <!-- LIGHTWEIGHT, CROSS-PLATFORM UNIFIED PHYSICS ENGINE -->
     <script>
         const canvas = document.getElementById('physics-canvas');
         const ctx = canvas.getContext('2d');
@@ -602,6 +590,37 @@
 
         const pills = skillSet.map((skill, index) => new SkillPill(skill, index));
 
+        // HIGH-FIDELITY SPEECH PIPELINE WITH AMAZING, FRESH VOCAL TUNING
+        function speakMessage(messageText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                
+                let utterance = new SpeechSynthesisUtterance(messageText);
+                let voices = window.speechSynthesis.getVoices();
+                
+                // Prioritize cutting-edge, natural fluid premium voices
+                let chosenVoice = voices.find(voice => 
+                    voice.name.includes('Natural') || 
+                    voice.name.includes('Google US English') || 
+                    voice.name.includes('Samantha') || 
+                    voice.name.includes('Microsoft Zira')
+                ) || voices.find(voice => voice.lang.includes('en'));
+                
+                if (chosenVoice) utterance.voice = chosenVoice;
+                
+                // FIXED ACOUSTIC DESIGN FOR A FRESH, AMAZING SOUND
+                utterance.rate = 0.95;  /* Perfectly paced, crisp flow */
+                utterance.pitch = 1.20; /* Vibrant, bright tone clarity */
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        if ('speechSynthesis' in window) { 
+            window.speechSynthesis.getVoices(); 
+            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+        }
+
         function startPortfolio() {
             const overlay = document.getElementById('welcome-overlay');
             const mainContent = document.getElementById('main-content');
@@ -658,39 +677,32 @@
         window.addEventListener('mouseup', stopInteraction);
         window.addEventListener('touchend', stopInteraction);
 
-        // GENTLE SPEECH ENGINE MAPPING
-        function speakMessage(messageText) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                let utterance = new SpeechSynthesisUtterance(messageText);
-                let voices = window.speechSynthesis.getVoices();
-                let chosenVoice = voices.find(voice => 
-                    voice.name.includes('Female') || voice.name.includes('Samantha') || voice.name.includes('Zira')
-                );
-                if (chosenVoice) utterance.voice = chosenVoice;
-                utterance.rate = 0.85; utterance.pitch = 1.25; 
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-        if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
-
+        // FRESH, AMAZING & SUPPORTIVE SCRIPT ROUTINES
         function startSpeechTimers() {
             timerInterval = setInterval(() => {
                 timeElapsed++;
+
+                // HOOK 1: 5 Seconds Warm Greeting
                 if (timeElapsed === 5 && !voiceTriggers.fiveSec) {
                     voiceTriggers.fiveSec = true;
-                    speakMessage("Hello there. Thank you so much for taking the time to visit Shruti's portfolio today. She is wonderful to work with, and we hope you love checking out her skills.");
+                    speakMessage("Hi there! Welcome to Shruti's workspace. It is so wonderful to have you here today. Take a look around, play with the workspace nodes, and feel free to explore her computing projects!");
                 }
+
+                // HOOK 2: 20 Seconds Polite Project Highlight
                 if (timeElapsed === 20 && !voiceTriggers.twentySec) {
                     voiceTriggers.twentySec = true;
-                    speakMessage("If you have a quick moment, could you please take a peek at her final year E-Cinema system and her collaborative prototype work? She put so much heart and logic into them.");
+                    speakMessage("I would love to invite you to check out her production builds, especially the relational analytics systems. She designed everything with incredible logic and precision!");
                 }
+
+                // HOOK 3: 40 Seconds Requestable Contact Option
                 if (timeElapsed === 40 && !voiceTriggers.fortySec) {
                     voiceTriggers.fortySec = true;
-                    speakMessage("Thank you for looking through her journey. If her profile matches what you are looking for, would you mind sending her a quick message through the email link? She would love to connect with you.");
+                    speakMessage("Thank you so much for exploring her journey. If you like what you see, please consider sending her a quick invite using the link right here. She would absolutely love to hear from you!");
+                    
                     const emailBtn = document.getElementById('email-btn');
                     if (emailBtn) emailBtn.style.boxShadow = "0px 0px 25px #10B981";
                 }
+
             }, 1000);
         }
 
