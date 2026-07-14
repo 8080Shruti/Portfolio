@@ -71,11 +71,174 @@
             padding-bottom: 120px; 
         }
 
-        a, .btn, .project-row {
+        a, .btn, .project-row, .floating-action-system {
             position: relative;
             z-index: 30;
             pointer-events: auto;
         }
+
+        /* FLOATING CORNER INTERACTION LAYER HUB */
+        .floating-action-system {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.6rem;
+            z-index: 99999;
+        }
+
+        @media (min-width: 768px) {
+            .floating-action-system { bottom: 2rem; right: 2rem; gap: 0.8rem; }
+        }
+
+        .floating-logo-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .floating-logo-btn { width: 54px; height: 54px; }
+        }
+
+        .floating-logo-btn:hover { transform: translateY(-4px) scale(1.05); }
+        .btn-whatsapp { background: #25D366; box-shadow: 0px 8px 20px rgba(37, 211, 102, 0.3); }
+        .btn-phone { background: #1e293b; border-color: var(--border); box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3); }
+        
+        .btn-ai-assistant {
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            border-color: var(--accent);
+            box-shadow: 0px 8px 24px rgba(56, 189, 248, 0.25);
+            animation: assistantPulse 2s infinite alternate;
+        }
+
+        @media (max-width: 767px) {
+            .btn-ai-assistant {
+                animation: none;
+            }
+        }
+
+        @keyframes assistantPulse {
+            0% { border-color: #1e2942; box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4); }
+            100% { border-color: var(--accent); box-shadow: 0 0 15px rgba(56, 189, 248, 0.4); }
+        }
+
+        .floating-logo-btn svg { width: 22px; height: 22px; fill: #ffffff; }
+        @media (min-width: 768px) { .floating-logo-btn svg { width: 24px; height: 24px; } }
+
+        /* FLOATING DOCK CHAT PORTAL INTERFACE */
+        .gemini-chat-portal {
+            position: absolute;
+            bottom: 120%;
+            right: 0;
+            width: calc(100vw - 2rem);
+            max-width: 360px;
+            background: #0d1527;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 12px 50px rgba(0, 0, 0, 0.8);
+            display: none;
+            flex-direction: column;
+            padding: 1.2rem;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-display-screen {
+            background: rgba(6, 9, 19, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.8rem;
+            min-height: 120px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+        }
+
+        .quick-questions-deck {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .suggestion-chip {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            text-align: left;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: normal; 
+        }
+
+        .suggestion-chip:hover {
+            background: rgba(56, 189, 248, 0.06);
+            border-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .chat-input-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 0.8rem;
+        }
+
+        .assistant-text-field {
+            flex-grow: 1;
+            background: rgba(6, 9, 19, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            font-size: 0.82rem;
+            color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .assistant-text-field:focus { border-color: var(--accent); }
+
+        .mic-record-btn, .text-send-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(19, 26, 44, 0.9);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .text-send-btn { background: rgba(56, 189, 248, 0.1); border-color: var(--accent); }
+
+        .mic-record-btn.active-listening {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--data-accent);
+            box-shadow: 0 0 10px var(--data-accent);
+            animation: pulseGlow 1.5s infinite;
+        }
+
+        @keyframes pulseGlow { 0% {transform:scale(1);} 50% {transform:scale(1.08);} 100% {transform:scale(1);} }
 
         /* WELCOME GREETING OVERLAY SCREEN */
         #welcome-overlay {
@@ -106,245 +269,76 @@
             animation: cardEntrance 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        @keyframes cardEntrance {
-            to { transform: scale(1); }
-        }
-
-        .welcome-card h2 {
-            font-size: 1.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            letter-spacing: -1px;
-        }
-
+        @keyframes cardEntrance { to { transform: scale(1); } }
+        .welcome-card h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: -1px; }
         .welcome-card h2 span { color: var(--data-accent); }
+        .welcome-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 2rem; }
 
-        .welcome-card p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Minimal Navigation */
+        /* Navigation Layout */
         nav {
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 0;
             border-bottom: 1px solid var(--border);
         }
+        @media (min-width: 480px) { nav { padding: 2rem 0; } }
 
-        @media (min-width: 480px) { nav { flex-direction: row; padding: 2rem 0; } }
-
-        .nav-brand {
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
-            text-decoration: none;
-        }
-
+        .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-main); text-decoration: none; }
         .nav-brand span { color: var(--data-accent); }
-
-        .status-badge {
-            background: rgba(16, 185, 129, 0.12);
-            color: var(--data-accent);
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--data-accent);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--data-accent);
-        }
+        .status-badge { background: rgba(16, 185, 129, 0.12); color: var(--data-accent); font-size: 0.8rem; font-weight: 600; padding: 0.4rem 1rem; border-radius: 50px; border: 1px solid rgba(16, 185, 129, 0.3); display: flex; align-items: center; gap: 8px; }
+        .status-dot { width: 8px; height: 8px; background: var(--data-accent); border-radius: 50%; box-shadow: 0 0 8px var(--data-accent); }
 
         /* Hero Layout */
         header { padding: 3rem 0 2rem 0; }
-
         @media (min-width: 768px) { header { padding: 6rem 0 4rem 0; } }
-
-        .hero-location {
-            color: var(--data-accent);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 1rem;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 6vw, 3.8rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-desc {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 750px;
-            margin-bottom: 2.5rem;
-        }
-
-        @media (min-width: 768px) { .hero-desc { font-size: 1.2rem; } }
+        h1 { font-size: clamp(2rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.1; letter-spacing: -1px; margin-bottom: 1.5rem; }
+        .hero-desc { font-size: 1.05rem; color: var(--text-muted); max-width: 750px; margin-bottom: 2.5rem; }
 
         /* Interactive Buttons */
-        .action-hub {
-            display: flex;
-            gap: 0.8rem;
-            flex-direction: column;
-            margin-bottom: 3rem;
-        }
+        .action-hub { display: flex; gap: 0.8rem; flex-direction: column; margin-bottom: 3rem; }
+        @media (min-width: 480px) { .action-hub { flex-direction: row; flex-wrap: wrap; margin-bottom: 4rem; } }
 
-        @media (min-width: 480px) {
-            .action-hub { flex-direction: row; flex-wrap: wrap; margin-bottom: 4rem; }
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 6px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
+        .btn { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 0.95rem; font-weight: 600; transition: all 0.2s ease; cursor: pointer; }
         .btn-primary { background: var(--text-main); color: var(--bg); border: none; box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1); }
-        .btn-primary:hover { background: #ffffff; transform: translateY(-2px); }
         .btn-secondary { background: rgba(255, 255, 255, 0.02); color: var(--text-main); border: 1px solid var(--border); backdrop-filter: blur(4px); }
 
-        /* Split Dashboard Layout */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
+        /* Dashboard Structural Columns */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 3rem; }
+        @media (min-width: 900px) { .dashboard-grid { grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 5rem; } }
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .section-title::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
 
-        @media (min-width: 900px) {
-            .dashboard-grid { grid-template-columns: 2fr 1fr; gap: 3rem; margin-bottom: 5rem; }
-        }
-
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        /* Projects List Grid */
+        /* Projects Cards mapping */
         .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
-
-        .project-row {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: border-color 0.3s, transform 0.3s;
-            backdrop-filter: blur(12px);
-        }
-
-        @media (min-width: 768px) { .project-row { padding: 2rem; } }
-
-        .project-row:hover {
-            border-color: var(--data-accent);
-            transform: scale(1.01);
-        }
-
+        .project-row { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; backdrop-filter: blur(12px); }
         .project-row.data-highlight { border-left: 4px solid var(--data-accent); }
-
-        .project-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 0.8rem;
-        }
-
-        @media (min-width: 480px) {
-            .project-meta { flex-direction: row; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; }
-        }
-
+        .project-meta { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.8rem; }
+        @media (min-width: 480px) { .project-meta { flex-direction: row; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; } }
         .project-row h3 { font-size: 1.2rem; font-weight: 600; }
         .project-row p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
         .tag-row { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        
-        .tech-tag {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--border);
-            color: var(--text-main);
-            padding: 0.2rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
+        .tech-tag { background: rgba(255,255,255,0.03); border: 1px solid var(--border); color: var(--text-main); padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; }
         .tech-tag.data-pill { background: rgba(16, 185, 129, 0.08); color: var(--data-accent); }
-        .project-link { color: var(--accent); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
 
-        /* Right Side columns */
         .right-column { display: flex; flex-direction: column; gap: 3rem; }
         .timeline-block { padding-left: 1.5rem; border-left: 2px solid var(--border); }
         .timeline-node { margin-bottom: 1.8rem; }
         .node-title { font-size: 1rem; font-weight: 600; }
-        .node-company { color: var(--data-accent); font-size: 0.9rem; font-weight: 500; }
-        .node-date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .node-company { color: var(--data-accent); font-size: 0.9rem; }
+        .node-date { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* Persistent Static Pills */
         .pill-box { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .pill {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            color: var(--text-main);
-        }
+        .pill { background: var(--surface); border: 1px solid var(--border); padding: 0.4rem 0.8rem; border-radius: 6px; font-size: 0.85rem; color: var(--text-main); }
         .pill.focus { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); color: #ffffff; font-weight: 600; }
 
-        footer {
-            padding: 3rem 0;
-            border-top: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        @media (min-width: 480px) {
-            footer { flex-direction: row; justify-content: space-between; text-align: left; }
-        }
+        footer { padding: 3rem 0; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 1rem; text-align: center; color: var(--text-muted); font-size: 0.85rem; }
+        @media (min-width: 480px) { footer { flex-direction: row; justify-content: space-between; text-align: left; } }
     </style>
 </head>
 <body>
 
+    <!-- WELCOME GREETING OVERLAY SCREEN -->
     <div id="welcome-overlay">
         <div class="welcome-card">
             <h2>Hello & <span>Welcome</span>!</h2>
@@ -353,6 +347,47 @@
         </div>
     </div>
 
+    <!-- CORNER SYSTEM LAYER COMBINING CHAT PORTAL AND DIRECT BUTTONS -->
+    <div class="floating-action-system" id="contact-hub" style="display: none;">
+        
+        <!-- EXPANDABLE CHAT PANEL CONTAINER -->
+        <div class="gemini-chat-portal" id="gemini-panel">
+            <div class="chat-display-screen" id="ai-chat-bubble">Type a prompt or tap mic below.</div>
+            
+            <div class="quick-questions-deck">
+                <button class="suggestion-chip" onclick="submitSuggestedQuery('about')">Who is Shruti Dubey?</button>
+                <button class="suggestion-chip" onclick="submitSuggestedQuery('projects')">What are her main CS projects?</button>
+                <button class="suggestion-chip" onclick="submitSuggestedQuery('call')">Call Shruti directly</button>
+            </div>
+
+            <div class="chat-input-row">
+                <div id="ai-mic-btn" class="mic-record-btn" onclick="triggerVoiceCapture()" title="Speak prompt">
+                    <svg width="15" height="16" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><path d="M12 1v10M19 10v1a7 7 0 0 1-14 0v-1M12 21v2M8 23h8"/></svg>
+                </div>
+                <input type="text" id="assistant-input-box" class="assistant-text-field" placeholder="Ask anything..." onkeydown="handleTextKeyPress(event)">
+                <div class="text-send-btn" onclick="triggerTextSubmission()" title="Send text prompt">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2.5"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating AI Assistant Launcher Button -->
+        <div class="floating-logo-btn btn-ai-assistant" onclick="toggleGeminiPortal()" title="Toggle AI Assistant">
+            <svg viewBox="0 0 24 24" stroke="#38BDF8" stroke-width="2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+
+        <!-- WhatsApp Button -->
+        <a href="https://wa.me/918080229051?text=Hi%20Shruti%2C%20I%20saw%20your%20portfolio%20and%20I%20would%20like%20to%20connect%20for%20a%20job%20related%20opportunity%21" target="_blank" class="floating-logo-btn btn-whatsapp" title="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.66.986 3.288 1.479 4.884 1.48 5.532 0 10.03-4.5 10.032-10.03.001-2.67-.1-5.178-1.986-7.07C17.65 1.65 15.148 1.55 12.007 1.55c-5.534 0-10.03 4.5-10.032 10.03-.001 1.723.486 3.411 1.412 4.9l-.993 3.626 3.653-.958zM17.486 14.37c-.3-.149-1.774-.875-2.04-.974-.269-.099-.465-.149-.661.149-.197.299-.761.974-.933 1.173-.173.199-.347.224-.647.075-.3-.15-1.266-.466-2.412-1.484-.892-.796-1.494-1.78-1.67-2.079-.174-.299-.018-.46.131-.609.136-.134.299-.349.449-.523.149-.174.199-.299.299-.497.099-.198.05-.372-.025-.521-.075-.149-.661-1.594-.905-2.179-.237-.57-.497-.493-.661-.493-.171-.002-.367-.003-.564-.003-.197 0-.518.074-.789.421-.27.349-1.031 1.009-1.031 2.463 0 1.453 1.056 2.859 1.204 3.057.148.199 2.078 3.173 5.034 4.447.703.303 1.252.484 1.68.621.706.224 1.349.193 1.857.117.566-.084 1.774-.726 2.023-1.428.249-.699.249-1.3.173-1.428-.075-.102-.27-.151-.569-.3z"/></svg>
+        </a>
+
+        <!-- Phone Button -->
+        <a href="tel:+918080229051" class="floating-logo-btn btn-phone" title="Call Shruti">
+            <svg viewBox="0 0 24 24"><path d="M6.167 8.94c.433-.747.887-1.18 1.483-1.18.59 0 .89.28 1.317.77.362.41.763.95 1.157 1.37.4.42.473.6.216.99-.265.4-.53.79-.817 1.13-.3.35-.373.54-.083.9.723 1.18 1.62 2.14 2.827 2.87.357.22.51.13.816-.18.312-.32.656-.67.986-1 .39-.39.6-.28.983.12.4.41.97.94 1.393 1.37.42.43.68.74.68 1.31 0 .58-.45 1.03-1.22 1.45-2.227 1.21-4.757-.14-6.843-2.18C8.167 15.34 6.88 12.87 8 10.66c-.347-.4-.847-1.03-1.833-1.72zm11.66-6.1c1.55 0 2.97.6 4.07 1.66 1.1 1.1 1.7 2.52 1.7 4.07 0 5.43-3.66 10.37-8.6 12.91a13.9 13.9 0 01-6.17 1.4c-3.15 0-6.14-1.2-8.35-3.41C.267 17.26-.4 14.15-.4 10.96c0-4.94 4.54-8.6 9.47-8.6.26 0 .51.01.76.04.41.05.71.42.66.83-.05.41-.42.71-.83.66-.2-.02-.4-.03-.6-.03-3.9 0-7.97 2.93-7.97 7.1 0 2.7.94 5.3 2.8 7.16 1.86 1.86 4.38 2.88 7.04 2.88.46 0 .93-.03 1.39-.1 4.12-2.12 7.18-6.14 7.18-10.6 0-1.15-.45-2.21-1.26-3.02a4.2 4.2 0 00-3.02-1.26c-.41 0-.75-.34-.75-.75s.34-.75.75-.75z"/></svg>
+        </a>
+    </div>
+
+    <!-- TECH WIRE CANVASES -->
     <div class="grid-overlay"></div>
     <canvas id="physics-canvas"></canvas>
 
@@ -360,9 +395,7 @@
         
         <nav>
             <a href="#" class="nav-brand">SHRUTI<span>.BSc_CS</span></a>
-            <div class="status-badge">
-                <div class="status-dot"></div> Available for Hire
-            </div>
+            <div class="status-badge"><div class="status-dot"></div> Available for Hire</div>
         </nav>
 
         <header>
@@ -380,11 +413,9 @@
         </header>
 
         <div class="dashboard-grid">
-            
             <div>
                 <h2 class="section-title">Core Systems & Data Engineering</h2>
                 <div class="projects-list">
-                    
                     <div class="project-row data-highlight">
                         <div class="project-meta">
                             <h3>E-Cinema Analytics & Relational Booking Platform</h3>
@@ -437,34 +468,28 @@
                             <span class="tech-tag">IBM SkillBuild</span>
                         </div>
                     </div>
-
                 </div>
             </div>
 
             <div class="right-column">
-                
                 <div>
                     <h2 class="section-title">Professional Footprint</h2>
                     <div class="timeline-block">
-                        
                         <div class="timeline-node">
                             <div class="node-title">Web Development Intern</div>
                             <div class="node-company">CodSoft</div>
                             <div class="node-date">Jan 2026 - Feb 2026</div>
                         </div>
-
                         <div class="timeline-node">
                             <div class="node-title">Web Development Intern</div>
                             <div class="node-company">IBM SkillBuild</div>
                             <div class="node-date">Jun 2025 - Jul 2025</div>
                         </div>
-
                         <div class="timeline-node">
                             <div class="node-title">Founder / Data Manager</div>
                             <div class="node-company">Flameies Organic Candles</div>
                             <div class="node-date">2023 - Present</div>
                         </div>
-
                     </div>
                 </div>
 
@@ -481,7 +506,6 @@
                         <span class="pill">IIT Bombay HTML Trained</span>
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -489,228 +513,229 @@
             <p>&copy; 2026 Shruti Dubey. Engineered for High Performance.</p>
             <p>Nagindas Khandwala College Alumni.</p>
         </footer>
-
     </div>
 
+    <!-- ADVANCED CHAT INTERACTION & CONVERSATIONAL ROUTER MODULE -->
     <script>
         const canvas = document.getElementById('physics-canvas');
         const ctx = canvas.getContext('2d');
-
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
-        let physicsActive = false; 
-        let timeElapsed = 0;
-        let timerInterval = null;
+        let physicsActive = false;
+        let portalOpen = false;
 
-        let voiceTriggers = { fiveSec: false, twentySec: false, fortySec: false };
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recognition = window.SpeechRecognition ? new SpeechRecognition() : null;
 
         window.addEventListener('resize', () => {
             width = canvas.width = window.innerWidth;
             height = canvas.height = window.innerHeight;
         });
 
-        const skillSet = [
-            "Microsoft Azure Data", "MySQL", "Oracle DB", "Python", 
-            "Relational SQL", "Git & GitHub", "HTML5", "CSS", 
-            "Data Automation"
+        function toggleGeminiPortal() {
+            const panel = document.getElementById('gemini-panel');
+            if(!portalOpen) {
+                panel.style.display = 'flex';
+                portalOpen = true;
+                speakMessage("Hi! How can I help you today?");
+                document.getElementById('ai-chat-bubble').innerHTML = "<em>\"Hi! How can I help you today?\"</em>";
+                setTimeout(() => document.getElementById('assistant-input-box').focus(), 100);
+            } else {
+                panel.style.display = 'none';
+                portalOpen = false;
+                if(window.speechSynthesis) window.speechSynthesis.cancel();
+            }
+        }
+
+        function submitSuggestedQuery(key) {
+            processVoiceCommand(key);
+        }
+
+        if (recognition) {
+            recognition.continuous = false;
+            recognition.lang = 'en-US';
+            
+            recognition.onstart = () => {
+                document.getElementById('ai-mic-btn').classList.add('active-listening');
+                document.getElementById('ai-chat-bubble').innerText = "Listening closely...";
+            };
+            recognition.onend = () => {
+                document.getElementById('ai-mic-btn').classList.remove('active-listening');
+            };
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript.toLowerCase();
+                processVoiceCommand(text);
+            };
+        }
+
+        function triggerVoiceCapture() {
+            if(!recognition) { alert("Speech transcription not accessible on this device framework."); return; }
+            recognition.start();
+        }
+
+        function triggerTextSubmission() {
+            const inputBox = document.getElementById('assistant-input-box');
+            const queryText = inputBox.value.trim().toLowerCase();
+            if(queryText === "") return;
+            
+            processVoiceCommand(queryText);
+            inputBox.value = ""; 
+        }
+
+        function handleTextKeyPress(event) {
+            if(event.key === 'Enter') { triggerTextSubmission(); }
+        }
+
+        // DYNAMIC CONVERSATIONAL DICTIONARY MATRIX FOR UNIQUE ANSWERS
+        const knowledgeGraph = [
+            {
+                keywords: ['who is', 'about', 'summary', 'credentials', 'shruti'],
+                response: "Shruti Dubey is a software engineer and BSc Computer Science Graduate from Nagindas Khandwala College in Mumbai. She focuses on database architecture, backend scripting, and responsive design systems."
+            },
+            {
+                keywords: ['project', 'e-cinema', 'exercise', 'flameies', 'build'],
+                response: "Her top deployments include:\n\n1. E-Cinema System: A Python and MySQL transactional ticketing platform.\n2. Clinical Exercise App: A pain management layout mapping routines for elderly patients.\n3. Flameies Portal: Official responsive product storefront code."
+            },
+            {
+                keywords: ['call', 'phone', 'contact', 'whatsapp', 'interview', 'hire'],
+                response: "Initializing deep linking pipelines directly to Shruti's primary mobile link, +91 8080229051 now."
+            },
+            {
+                keywords: ['intern', 'experience', 'footprint', 'codsoft', 'ibm'],
+                response: "Shruti completed two major tech internships:\n\n- CodSoft (Jan 2026 - Feb 2026) focusing on modern responsive layout frameworks.\n- IBM SkillBuild (Jun 2025 - Jul 2025) developing web prototypes in a collaborative environment."
+            },
+            {
+                keywords: ['skill', 'stack', 'tool', 'python', 'sql', 'mysql', 'oracle'],
+                response: "Her core technical competencies map out across Python development, Relational SQL logic, MySQL, Oracle Databases, Git integration, and Microsoft Azure Data Fundamentals."
+            },
+            {
+                keywords: ['college', 'university', 'education', 'degree', 'nagindas'],
+                response: "She holds a Bachelor of Science degree in Computer Science from Nagindas Khandwala College in Mumbai, graduating with high proficiency in data science pipelines and systems management."
+            }
         ];
 
+        // DYNAMIC INTERPOLATION PARSING ALGORITHM
+        function processVoiceCommand(input) {
+            const bubble = document.getElementById('ai-chat-bubble');
+            let matchedAnswer = null;
+
+            // Loop through keyword objects to look for relevant matches
+            for (const node of knowledgeGraph) {
+                const triggerFound = node.keywords.some(word => input.includes(word));
+                if (triggerFound) {
+                    matchedAnswer = node.response;
+                    break;
+                }
+            }
+
+            if (matchedAnswer) {
+                bubble.innerText = matchedAnswer;
+                // Stripping format numbers/newlines for natural voice emission
+                const speakingCleanText = matchedAnswer.replace(/[0-9.]/g, '').replace(/\n/g, ' ');
+                speakMessage(speakingCleanText);
+
+                // Instantly execute hyper-linking if the user commands to contact you
+                if (input.includes('call') || input.includes('phone') || input.includes('whatsapp') || input.includes('hire')) {
+                    setTimeout(() => window.location.href = "tel:+918080229051", 1600);
+                }
+            } else {
+                // Unique answer telling them exactly what keywords they can evaluate
+                const fallback = `I analyzed "${input}" but couldn't find a direct database match.\n\nTry asking unique things like: "Where did she do her internships?", "What skills does she have?", or "Tell me about her college degree!"`;
+                bubble.innerText = fallback;
+                speakMessage("I analyzed your question but couldn't find a match. Try asking about her internships, her tech skills, or her college degree!");
+            }
+            bubble.scrollTop = bubble.scrollHeight;
+        }
+
+        function speakMessage(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                let utterance = new SpeechSynthesisUtterance(text);
+                let voices = window.speechSynthesis.getVoices();
+                
+                let chosenVoice = voices.find(v => 
+                    v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Samantha'))
+                ) || voices.find(v => v.lang.startsWith('en'));
+                
+                if (chosenVoice) utterance.voice = chosenVoice;
+                utterance.rate = 0.95; utterance.pitch = 1.20;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        const skillSet = ["Microsoft Azure Data", "MySQL", "Oracle DB", "Python", "Relational SQL", "Git & GitHub", "HTML5", "CSS", "Data Automation"];
         let interaction = { x: 0, y: 0, isDown: false, draggedPill: null };
 
         class SkillPill {
             constructor(text, index) {
-                this.text = text;
-                ctx.font = '600 11px Inter';
-                this.paddingX = 12;
-                this.paddingY = 6;
-                this.w = ctx.measureText(text).width + (this.paddingX * 2);
-                this.h = 24; 
-                
-                this.x = (width / (skillSet.length + 1)) * (index + 1) - (this.w / 2) + (Math.random() - 0.5) * 30;
-                this.y = -80 - (index * 65); 
-                
-                this.vy = Math.random() * 8 + 12; 
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.gravity = 0.35;
-                this.bounce = 0.42;
-                this.friction = 0.95;
-                this.color = Math.random() > 0.5 ? '#10B981' : '#38BDF8';
-                this.isGrounded = false;
+                this.text = text; ctx.font = '600 11px Inter';
+                this.paddingX = 12; this.paddingY = 6;
+                this.w = ctx.measureText(text).width + (this.paddingX * 2); this.h = 24;
+                this.x = (width / (skillSet.length + 1)) * (index + 1) - (this.w / 2);
+                this.y = -80 - (index * 65);
+                this.vy = Math.random() * 8 + 12; this.vx = (Math.random() - 0.5) * 1.5;
+                this.gravity = 0.35; this.bounce = 0.42; this.friction = 0.95;
+                this.color = Math.random() > 0.5 ? '#10B981' : '#38BDF8'; this.isGrounded = false;
             }
-
             update(pills) {
                 if (interaction.draggedPill === this) {
-                    this.vx = (interaction.x - (this.w / 2) - this.x) * 0.25;
-                    this.vy = (interaction.y - (this.h / 2) - this.y) * 0.25;
-                    this.x += this.vx; this.y += this.vy;
-                    this.isGrounded = false;
-                    return;
+                    this.vx = (interaction.x - (this.w / 2) - this.x) * 0.25; this.vy = (interaction.y - (this.h / 2) - this.y) * 0.25;
+                    this.x += this.vx; this.y += this.vy; this.isGrounded = false; return;
                 }
-
-                if (!this.isGrounded) {
-                    this.vy += this.gravity;
-                    this.y += this.vy; this.x += this.vx;
-                }
-
-                if (this.y + this.h >= height) {
-                    this.y = height - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction;
-                    if (Math.abs(this.vy) < 0.6) { this.vy = 0; this.isGrounded = true; }
-                }
-
+                if (!this.isGrounded) { this.vy += this.gravity; this.y += this.vy; this.x += this.vx; }
+                if (this.y + this.h >= height) { this.y = height - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction; if (Math.abs(this.vy) < 0.6) { this.vy = 0; this.isGrounded = true; } }
                 for (let i = 0; i < pills.length; i++) {
                     let other = pills[i]; if (other === this || interaction.draggedPill === other) continue;
-                    if (this.x < other.x + other.w && this.x + this.w > other.x &&
-                        this.y < other.y + other.h && this.y + this.h > other.y) {
-                        if (this.y + this.h - this.vy <= other.y + 5) {
-                            this.y = other.y - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction;
-                            if (Math.abs(this.vy) < 0.6) this.vy = 0;
-                        } else {
-                            if (this.x + (this.w / 2) < other.x + (other.w / 2)) { this.x = other.x - this.w - 1; this.vx = -Math.abs(this.vx) * 0.3; }
-                            else { this.x = other.x + other.w + 1; this.vx = Math.abs(this.vx) * 0.3; }
-                        }
+                    if (this.x < other.x + other.w && this.x + this.w > other.x && this.y < other.y + other.h && this.y + this.h > other.y) {
+                        if (this.y + this.h - this.vy <= other.y + 5) { this.y = other.y - this.h; this.vy = -this.vy * this.bounce; this.vx *= this.friction; if (Math.abs(this.vy) < 0.6) this.vy = 0; }
+                        else { if (this.x + (this.w / 2) < other.x + (other.w / 2)) { this.x = other.x - this.w - 1; this.vx = -Math.abs(this.vx) * 0.3; } else { this.x = other.x + other.w + 1; this.vx = Math.abs(this.vx) * 0.3; } }
                     }
                 }
-                if (this.x <= 0) { this.x = 0; this.vx = -this.vx * 0.4; }
-                if (this.x + this.w >= width) { this.x = width - this.w; this.vx = -this.vx * 0.4; }
+                if (this.x <= 0) { this.x = 0; this.vx = -this.vx * 0.4; } if (this.x + this.w >= width) { this.x = width - this.w; this.vx = -this.vx * 0.4; }
             }
-
             draw() {
                 ctx.beginPath(); ctx.roundRect(this.x, this.y, this.w, this.h, 6);
-                ctx.fillStyle = interaction.draggedPill === this ? 'rgba(30, 41, 59, 0.95)' : 'rgba(19, 26, 44, 0.85)';
-                ctx.strokeStyle = this.color; ctx.lineWidth = interaction.draggedPill === this ? 2 : 1.2;
-                
+                ctx.fillStyle = interaction.draggedPill === this ? 'rgba(30, 41, 59, 0.95)' : 'rgba(19, 26, 44, 0.85)'; ctx.strokeStyle = this.color; ctx.lineWidth = interaction.draggedPill === this ? 2 : 1.2;
                 if (interaction.draggedPill === this) { ctx.shadowColor = this.color; ctx.shadowBlur = 10; }
-                ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0; 
-
-                ctx.font = '600 11px Inter'; ctx.fillStyle = '#FFFFFF';
-                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+                ctx.font = '600 11px Inter'; ctx.fillStyle = '#FFFFFF'; ctx.textAlign = 'left'; ctx.textBaseline = 'top';
                 ctx.fillText(this.text, this.x + this.paddingX, this.y + this.paddingY);
             }
         }
 
         const pills = skillSet.map((skill, index) => new SkillPill(skill, index));
 
-        // HIGH-FIDELITY SPEECH PIPELINE WITH AMAZING, FRESH VOCAL TUNING
-        function speakMessage(messageText) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                
-                let utterance = new SpeechSynthesisUtterance(messageText);
-                let voices = window.speechSynthesis.getVoices();
-                
-                // Prioritize cutting-edge, natural fluid premium voices
-                let chosenVoice = voices.find(voice => 
-                    voice.name.includes('Natural') || 
-                    voice.name.includes('Google US English') || 
-                    voice.name.includes('Samantha') || 
-                    voice.name.includes('Microsoft Zira')
-                ) || voices.find(voice => voice.lang.includes('en'));
-                
-                if (chosenVoice) utterance.voice = chosenVoice;
-                
-                // FIXED ACOUSTIC DESIGN FOR A FRESH, AMAZING SOUND
-                utterance.rate = 0.95;  /* Perfectly paced, crisp flow */
-                utterance.pitch = 1.20; /* Vibrant, bright tone clarity */
-                
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        if ('speechSynthesis' in window) { 
-            window.speechSynthesis.getVoices(); 
-            window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-        }
-
         function startPortfolio() {
-            const overlay = document.getElementById('welcome-overlay');
-            const mainContent = document.getElementById('main-content');
-            
-            overlay.style.opacity = '0';
+            document.getElementById('welcome-overlay').style.opacity = '0';
             setTimeout(() => {
-                overlay.style.display = 'none';
-                mainContent.style.opacity = '1';
-                physicsActive = true; 
-                startSpeechTimers();
+                document.getElementById('welcome-overlay').style.display = 'none';
+                document.getElementById('main-content').style.opacity = '1';
+                document.getElementById('contact-hub').style.display = 'flex';
+                physicsActive = true;
             }, 600);
         }
 
         function setInteractionCoords(e) {
-            if (e.touches && e.touches.length > 0) {
-                interaction.x = e.touches[0].clientX;
-                interaction.y = e.touches[0].clientY;
-            } else {
-                interaction.x = e.clientX;
-                interaction.y = e.clientY;
-            }
+            if (e.touches && e.touches.length > 0) { interaction.x = e.touches[0].clientX; interaction.y = e.touches[0].clientY; }
+            else { interaction.x = e.clientX; interaction.y = e.clientY; }
         }
-
         window.addEventListener('mousemove', setInteractionCoords);
-        window.addEventListener('touchmove', (e) => {
-            if (interaction.draggedPill) e.preventDefault();
-            setInteractionCoords(e);
-        }, { passive: false });
+        window.addEventListener('touchmove', (e) => { if (interaction.draggedPill) e.preventDefault(); setInteractionCoords(e); }, { passive: false });
 
         const startInteraction = () => {
             if (!physicsActive) return;
-            interaction.isDown = true;
             for (let i = pills.length - 1; i >= 0; i--) {
-                let p = pills[i];
-                if (interaction.x >= p.x && interaction.x <= p.x + p.w &&
-                    interaction.y >= p.y && interaction.y <= p.y + p.h) {
-                    interaction.draggedPill = p;
-                    break;
-                }
+                let p = pills[i]; if (interaction.x >= p.x && interaction.x <= p.x + p.w && interaction.y >= p.y && interaction.y <= p.y + p.h) { interaction.draggedPill = p; break; }
             }
         };
-
         window.addEventListener('mousedown', startInteraction);
-        window.addEventListener('touchstart', (e) => {
-            setInteractionCoords(e);
-            startInteraction();
-        });
-
-        const stopInteraction = () => {
-            interaction.isDown = false;
-            interaction.draggedPill = null;
-        };
-
-        window.addEventListener('mouseup', stopInteraction);
-        window.addEventListener('touchend', stopInteraction);
-
-        // FRESH, AMAZING & SUPPORTIVE SCRIPT ROUTINES
-        function startSpeechTimers() {
-            timerInterval = setInterval(() => {
-                timeElapsed++;
-
-                // HOOK 1: 5 Seconds Warm Greeting
-                if (timeElapsed === 5 && !voiceTriggers.fiveSec) {
-                    voiceTriggers.fiveSec = true;
-                    speakMessage("Hi there! Welcome to Shruti's workspace. It is so wonderful to have you here today. Take a look around, play with the workspace nodes, and feel free to explore her computing projects!");
-                }
-
-                // HOOK 2: 20 Seconds Polite Project Highlight
-                if (timeElapsed === 20 && !voiceTriggers.twentySec) {
-                    voiceTriggers.twentySec = true;
-                    speakMessage("I would love to invite you to check out her production builds, especially the relational analytics systems. She designed everything with incredible logic and precision!");
-                }
-
-                // HOOK 3: 40 Seconds Requestable Contact Option
-                if (timeElapsed === 40 && !voiceTriggers.fortySec) {
-                    voiceTriggers.fortySec = true;
-                    speakMessage("Thank you so much for exploring her journey. If you like what you see, please consider sending her a quick invite using the link right here. She would absolutely love to hear from you!");
-                    
-                    const emailBtn = document.getElementById('email-btn');
-                    if (emailBtn) emailBtn.style.boxShadow = "0px 0px 25px #10B981";
-                }
-
-            }, 1000);
-        }
+        window.addEventListener('touchstart', (e) => { setInteractionCoords(e); startInteraction(); });
+        window.addEventListener('mouseup', () => interaction.draggedPill = null);
+        window.addEventListener('touchend', () => interaction.draggedPill = null);
 
         function physicsLoop() {
             ctx.clearRect(0, 0, width, height);
-            if (physicsActive) {
-                pills.forEach(pill => { pill.update(pills); pill.draw(); });
-            }
+            if (physicsActive) { pills.forEach(pill => { pill.update(pills); pill.draw(); }); }
             requestAnimationFrame(physicsLoop);
         }
         physicsLoop();
