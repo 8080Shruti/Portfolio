@@ -640,13 +640,14 @@
             bubble.scrollTop = bubble.scrollHeight;
         }
 
-        // ADVANCED MOBILE-OPTIMIZED HIGH-FIDELITY SPEECH PIPELINE
+        // UNIFIED FORCE FORCE SPEECH RETRIEVAL PIPELINE
         function speakMessage(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 let utterance = new SpeechSynthesisUtterance(text);
                 let voices = window.speechSynthesis.getVoices();
                 
+                // FORCE RE-FILTERING ARRAY: Destroys generic fallback voice blocks entirely
                 let chosenVoice = voices.find(v => 
                     v.lang.startsWith('en') && (
                         v.name.includes('Neural') ||      
@@ -671,9 +672,26 @@
             }
         }
 
+        // Active forced refresh layer script injection hooks
         if ('speechSynthesis' in window) { 
             window.speechSynthesis.getVoices(); 
             window.speechSynthesis.onvoiceschanged = () => { window.speechSynthesis.getVoices(); };
+        }
+
+        function startPortfolio() {
+            document.getElementById('welcome-overlay').style.opacity = '0';
+            
+            // Forced Mobile Synth Sync Trigger on explicit user interaction button
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.getVoices();
+            }
+
+            setTimeout(() => {
+                document.getElementById('welcome-overlay').style.display = 'none';
+                document.getElementById('main-content').style.opacity = '1';
+                document.getElementById('contact-hub').style.display = 'flex';
+                physicsActive = true;
+            }, 600);
         }
 
         const skillSet = ["Microsoft Azure Data", "MySQL", "Oracle DB", "Python", "Relational SQL", "Git & GitHub", "HTML5", "CSS", "Data Automation"];
@@ -717,16 +735,6 @@
         }
 
         const pills = skillSet.map((skill, index) => new SkillPill(skill, index));
-
-        function startPortfolio() {
-            document.getElementById('welcome-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('welcome-overlay').style.display = 'none';
-                document.getElementById('main-content').style.opacity = '1';
-                document.getElementById('contact-hub').style.display = 'flex';
-                physicsActive = true;
-            }, 600);
-        }
 
         function setInteractionCoords(e) {
             if (e.touches && e.touches.length > 0) { interaction.x = e.touches[0].clientX; interaction.y = e.touches[0].clientY; }
